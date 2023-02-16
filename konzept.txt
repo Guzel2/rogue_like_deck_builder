@@ -1,0 +1,74 @@
+
+Kleines Deckbuilding rogue like:
+
+Play duration: 10-30 min 
+(depends on player speed, good player should play around 5-15 min)
+
+Portrait mode mobile game. Drag and Drop control scheme
+
+
+Goal:
+Reduce the Boss' HP to 0 (from like 40)
+
+Lose Condition:
+Lose all HP (start at like 10-15)
+
+
+What happens during a turn:
+0.	Start with 5 cards in hand, drawn from own deck
+1.	Do any of the two as often as you want in any order:
+1.1.	Play as many cards as you want
+1.2.	Buy as many cards as you can
+2.	Discard all remaining hand cards (and put all played cards in the discard)
+3.	Draw 5 new cards
+4.	Enemy Turn
+
+Enemy Turn:
+1. 	Destry left most card in the center row
+2.	Reveal and play an attack card
+3.	If no attack cards are left to play enter next phase
+
+Enemy Phases:
+- Enemy Deck starts with 4 Cards, they don't get shuffled
+- After every Phase:
+1.	Destroy the left most card in the center row
+2.	Add a new card to the Enemy Deck: new, new, upgrade, new, new, upgrade, new, new, upgrade, upgrade, upgrade
+	-> Eventually the enemy deck consists of 10 cards and they only get stronger
+
+
+Player Deck:
+7 x 1 Money
+2 x 2 Damage
+1 x Destroy a card from center row: +1 Money
+
+Shop Deck 25-30 Verschiedene Karten:
+	(3 rarities: common: 3 copies; uncommon: 2 copies; rare: 1 copy)
+
+Bleeding: 8-12
+1. 3: uncommon	inflict 1 bleeding, draw a card
+2. 2: uncommon	inflict 2 bleeding
+3. 4: common	1 Money, inflict 2 bleeding
+4. 2: common	if the opponent isn't bleeding: inflict 3 bleeding, else 2 Money
+5. 6: rare	Gain 1 Money per bleeding
+6. 3: common	Inflict 1 Bleeding: Banish up to two cards from your hand: inflict 2 bleeding per card
+
+Strength Stuff: 8-12
+1. 2: common	hit 1, draw a card
+2. 3: common	banish a card from your hand: return 2 cards from discard to hand
+3. 1: common	gain 2 temp stength
+4. 5: uncommon	discard a card: +1 Strength
+5. 4: rare	+1 strength
+6: 3: uncommon	hit 2 twice
+7. 4: common	choose twice: 1 Money, hit 2
+
+Consitency: 4-6
+1. 3: common	2 Money 
+2. 2: uncommon	draw a card, banish a card in the center row
+3. 2: common	1 Money, you may banish a card in yourhand: 1 Money
+4. 4: uncommon	2 Money, you may banish a card in your discard
+5. 5: rare	3 Money
+
+Other: 2-4
+
+
+

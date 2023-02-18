@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var hand_cards = find_node('hand_cards')
+onready var hand_cards = find_node('hand')
 
 var deck = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 var hand = []
@@ -10,8 +10,6 @@ func _ready():
 	draw_cards(1)
 
 func play_card(card_name: String, card):
-	print(card_name)
-	
 	var played = true
 	
 	match card_name: #check for conditions, for example if you need to discard cards
@@ -30,11 +28,12 @@ func play_card(card_name: String, card):
 			hand.append(hand_card)
 		
 		card.discard_this()
+		hand_cards.organize_cards()
 		
 		match card_name:
 			'0':
 				print('test effect')
-				draw_cards(3)
+				draw_cards(5)
 		
 	else:
 		card.return_to_hand()
@@ -67,7 +66,7 @@ func draw_cards(num_of_cards):
 			x += 1
 
 func add_card_to_hand(card_name):
-	var card = load("res://scenes_and_scripts/gameplay/card.tscn").instance()
+	var card = load("res://scenes_and_scripts/gameplay/hand_card.tscn").instance()
 	card.card_name = card_name
 	hand_cards.add_child(card)
 	hand_cards.organize_cards()

@@ -1,13 +1,17 @@
 extends Node2D
 
 onready var hand_cards = find_node('hand')
+onready var money_display = find_node('money_display')
 
-var deck = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+var deck = ['basic_money', 'basic_money', 'basic_money', 'basic_money', 'basic_money', 'basic_money', 'basic_money', 'basic_attack', 'basic_attack', 'basic_attack']
 var hand = []
 var discard = []
 
+var money = 0
+
 func _ready():
-	draw_cards(1)
+	deck.shuffle()
+	draw_cards(5)
 
 func play_card(card_name: String, card):
 	var played = true
@@ -31,12 +35,19 @@ func play_card(card_name: String, card):
 		hand_cards.organize_cards()
 		
 		match card_name:
-			'0':
-				print('test effect')
-				draw_cards(5)
+			'basic_money':
+				money += 1
+			
+			'basic_attack':
+				pass
+		
+		update()
 		
 	else:
 		card.return_to_hand()
+
+func update():
+	money_display.text = String(money)
 
 func start_turn():
 	pass
@@ -44,7 +55,9 @@ func start_turn():
 func end_turn():
 	for card in hand_cards.get_children():
 		card.discard_this()
-	draw_cards(2)
+	draw_cards(5)
+	
+	money = 0
 
 func draw_cards(num_of_cards):
 	var x = 0
@@ -62,8 +75,6 @@ func draw_cards(num_of_cards):
 			discard.shuffle()
 			deck = discard.duplicate()
 			discard.clear()
-			
-			x += 1
 
 func add_card_to_hand(card_name):
 	var card = load("res://scenes_and_scripts/gameplay/hand_card.tscn").instance()

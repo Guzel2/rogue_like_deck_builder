@@ -1,6 +1,7 @@
 extends TouchScreenButton
 
 onready var parent = get_parent()
+onready var sprite = find_node('sprite')
 
 var card_name = 'test'
 
@@ -19,6 +20,8 @@ var play_area_y = 210
 func _ready():
 	start_pos = position
 	desired_pos = start_pos
+	
+	sprite.animation = card_name
 
 func _process(delta):
 	is_pressed = false

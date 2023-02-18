@@ -1,16 +1,22 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes_and_scripts/gameplay/hand_card.gd" type="Script" id=1]
-[ext_resource path="res://sprites/cards/new_card.png" type="Texture" id=3]
+[ext_resource path="res://sprites/cards/basic_attack.png" type="Texture" id=2]
+[ext_resource path="res://sprites/cards/basic_money.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 15 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "basic_attack",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "default",
+"name": "basic_money",
 "speed": 5.0
 } ]
 
@@ -19,5 +25,6 @@ shape = SubResource( 1 )
 shape_centered = false
 script = ExtResource( 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
+animation = "basic_money"

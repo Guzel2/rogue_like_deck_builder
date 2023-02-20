@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var hand_cards = find_node('hand')
+onready var center_cards = find_node('center_row')
 onready var money_display = find_node('money_display')
 
 var deck = ['basic_money', 'basic_money', 'basic_money', 'basic_money', 'basic_money', 'basic_money', 'basic_money', 'basic_attack', 'basic_attack', 'basic_attack']
@@ -46,6 +47,26 @@ func play_card(card_name: String, card):
 	else:
 		card.return_to_hand()
 
+func buy_card(card_name: String, card):
+	var bought = true
+	
+	match card_name: #check for conditions, for example if you need to discard cards
+		'0':
+			pass
+		'1':
+			bought = false
+	
+	if bought:
+		print('sussy')
+		card.discard_this(Vector2(125, 230))
+		center_cards.organize_cards()
+		
+		discard.append(card_name)
+		
+		update()
+	else:
+		card.return_to_hand()
+
 func update():
 	money_display.text = String(money)
 
@@ -79,6 +100,7 @@ func draw_cards(num_of_cards):
 func add_card_to_hand(card_name):
 	var card = load("res://scenes_and_scripts/gameplay/hand_card.tscn").instance()
 	card.card_name = card_name
+	card.position.y = 250
 	hand_cards.add_child(card)
 	hand_cards.organize_cards()
 

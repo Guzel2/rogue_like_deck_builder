@@ -35,7 +35,7 @@ func _process(delta):
 		for child in parent.get_children():
 			if child != self:
 				child.lock()
-		for child in parent.parent.center_cards.get_children():
+		for child in parent.parent.hand_cards.get_children():
 			child.lock()
 		
 		just_pressed = true
@@ -45,19 +45,19 @@ func _process(delta):
 		for child in parent.get_children():
 			if child != self:
 				child.unlock()
-		for child in parent.parent.center_cards.get_children():
+		for child in parent.parent.hand_cards.get_children():
 			child.unlock()
 		
 		var y_pos = position.y
 		
 		if y_pos < top_area_y:
-			return_to_hand()
+			return_to_center_row()
 		elif y_pos < play_area_y:
 			action_on_desired_pos = null
 			desired_pos = position
-			parent.parent.play_card(card_name, self)
+			parent.parent.buy_card(card_name, self)
 		else:
-			return_to_hand()
+			return_to_center_row()
 	
 	elif desired_pos != position:
 		var dir = (desired_pos - position)
@@ -72,12 +72,12 @@ func _process(delta):
 				'remove':
 					queue_free()
 
-func discard_this():
+func discard_this(new_pos: Vector2):
 	parent.parent.discard.append(card_name)
-	desired_pos = Vector2(125, 230)
+	desired_pos = new_pos
 	action_on_desired_pos = 'remove'
 
-func return_to_hand():
+func return_to_center_row():
 	action_on_desired_pos = null
 	desired_pos = start_pos
 

@@ -10,9 +10,48 @@ var discard = []
 
 var money = 0
 
+var due_actions = []
+var current_action = null
+
+var action_on_next_card = 'play'
+
 func _ready():
 	deck.shuffle()
 	draw_cards(5)
+
+func _process(_delta):
+	if current_action == null:
+		if !due_actions.empty():
+			current_action = due_actions.pop_front()
+	else:
+		match current_action[0]:
+			'money':
+				money += current_action[1]
+				current_action = null
+				update()
+			'draw':
+				draw_cards(current_action[1])
+				current_action = null
+			'bleeding':
+				pass
+			'hit':
+				pass
+			'strength':
+				pass
+			'banish_from_hand':
+				if action_on_next_card == 'play':
+					action_on_next_card = 'banish'
+					current_action = null
+			'banish_from_discard':
+				pass
+			'banish_from_center':
+				pass
+			'discard_from_hand':
+				if action_on_next_card == 'play':
+					action_on_next_card = 'discard'
+					current_action = null
+			'return_from_discard':
+				pass
 
 func play_card(card_name: String, card):
 	var played = true
@@ -32,17 +71,26 @@ func play_card(card_name: String, card):
 			
 			hand.append(hand_card)
 		
-		card.discard_this()
+		print(action_on_next_card)
+		
+		match action_on_next_card:
+			'play':
+				match card_name:
+					'basic_money':
+						due_actions.append(['money', 1])
+					
+					'basic_attack':
+						due_actions.append(['draw', 2])
+						due_actions.append(['discard_from_hand', 1])
+				card.discard_this()
+			'discard':
+				card.discard_this()
+				action_on_next_card = 'play'
+			'banish':
+				card.banish_this()
+				action_on_next_card = 'play'
+		
 		hand_cards.organize_cards()
-		
-		match card_name:
-			'basic_money':
-				money += 1
-			
-			'basic_attack':
-				pass
-		
-		update()
 		
 	else:
 		card.return_to_hand()
@@ -55,9 +103,13 @@ func buy_card(card_name: String, card):
 			pass
 		'1':
 			bought = false
+		'basic_attack':
+			if money > 0:
+				money -= 1
+			else:
+				bought = false
 	
 	if bought:
-		print('sussy')
 		card.discard_this(Vector2(125, 230))
 		center_cards.organize_cards()
 		
@@ -65,7 +117,7 @@ func buy_card(card_name: String, card):
 		
 		update()
 	else:
-		card.return_to_hand()
+		card.return_to_center_row()
 
 func update():
 	money_display.text = String(money)
@@ -79,6 +131,7 @@ func end_turn():
 	draw_cards(5)
 	
 	money = 0
+	update()
 
 func draw_cards(num_of_cards):
 	var x = 0

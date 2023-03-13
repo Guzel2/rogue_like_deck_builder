@@ -14,8 +14,8 @@ font_data = ExtResource( 4 )
 
 [node name="main" type="Node2D"]
 __meta__ = {
-"_edit_horizontal_guides_": [ 140.0, 230.0 ],
-"_edit_vertical_guides_": [ 139.0 ]
+"_edit_horizontal_guides_": [ 120.0, 230.0 ],
+"_edit_vertical_guides_": [ 135.0 ]
 }
 
 [node name="return_to_hand_area" type="Sprite" parent="."]

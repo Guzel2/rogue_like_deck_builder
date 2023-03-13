@@ -50,4 +50,4 @@ func add_card_to_center_row():
 		add_child(card)
 		organize_cards()
 	else:
-		print('bruh')
+		print('no_cards_left_in_center row')

@@ -77,6 +77,10 @@ func discard_this():
 	desired_pos = Vector2(125, 230)
 	action_on_desired_pos = 'remove'
 
+func banish_this():
+	desired_pos = Vector2(125, 120)
+	action_on_desired_pos = 'remove'
+
 func return_to_hand():
 	action_on_desired_pos = null
 	desired_pos = start_pos
